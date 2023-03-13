@@ -37,8 +37,10 @@
 // });
 // console.log(words)  
 
-var words = [8, 'limit', 'elite', 'exuberant', 'destruction', 'present'];
-var resrut = words.map( function(item){
-   return item * 5
-});
-console.log(resrut)
+// var words = [8, 'limit', 'elite', 'exuberant', 'destruction', 'present'];
+// var resrut = words.map( function(item){
+//    return item * 5
+// });
+// console.log(resrut)
+var inputwword =[ 'limit', 'elite', 'exuberant', 'destruction', 'present']
+const tolal = inputwword.reduce()

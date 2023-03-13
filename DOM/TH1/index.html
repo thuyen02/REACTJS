@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <h1>Todo list</h1>
+    <form action="">
+        <input type="text" placeholder="add todo">
+        <button type="submit">add</button>
+    </form>
+<ul>
+<li>Buy groceries</li>
+<li>Feed the cat</li>
+<li>Do laundry</li>
+</ul>
+</body>
+<script>
+    const todos = ["learn javascritp"];
+    const todolist = document.querySelector("ul");
+    const form = document.querySelector('form')
+ 
+    form.addEventListener("submit",function(event){
+        event.preventDefault();
+        const input = document.querySelector("input");
+        console.log(input.value)
+        const value = input.value;
+        todos.push(value);
+        render();
+    });
+    function handleDelete(index){
+        todos.splice(index,1);
+        render();
+    }
+    function render(){
+        const todoelement = todos.map(function (todo){
+            return `
+            <li>
+              <span> ${todo}</span>
+              <button id="edit">edit</button>
+              <button id="delete">delete</button>
+                </li>
+            `;
+        });
+        todolist.innerHTML = todoelement.join("");
+        const deletebutton = document.querySelectorAll("#delete");
+        for(let index=0;index<deletebutton.length;index++){
+            const deletebutton = deletebutton[index];
+            deletebutton.addEventListener("click",function(){
+                handleDelete(index);
+            });
+        }
+    }
+    function initialapp( ){
+        render();
+    }
+    initialapp();    
+</script>
+</html>

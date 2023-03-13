@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+    <link
+    href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body>
+    <div class="container">
+        <div action="" id="form">
+            <h1>ĐO CHỈ SỐ (BMI)</h1>
+            <P>Chiều Cao</P>
+            <input class="form-control chieucao" type="text" placeholder="tính theo m" aria-label="default input example">
+            <p  >Cân nặng</p>
+            <input class="form-control cannang" type="text" placeholder="tính theo kg" aria-label="default input example">
+            <div class="d-flex my-3" >
+            <form id="elements">
+            <input type="radio" id="r1" name="element" value="1">  Nam
+            <input type="radio" id="r2" name="element" checked="checked"value="2"> Nữ 
+            </form>
+        
+            </div>
+            <button  onclick=" Myfuction()" class="btn btn-primary my-2" style="text-align: center;">Primary</button>
+            <div class="mb-3 my-2">
+                <label for="exampleFormControlTextarea1" class="form-label">Kết Quả:</label>
+                <div id="hot" style="font-size: 24px; font-weight: 700;"  >
+
+                </div>
+              </div>
+
+        </form>
+       
+      </div>
+    </div>
+</body>
+<script>
+
+  const ele = document.forms.elements.elements["element"];
+
+  // const GT = document.innerHTML = `${ele.value}`
+  const form = document.querySelector("#form")
+  const cannag = document.querySelector(".cannang");
+  const chieucao = document.querySelector(".chieucao");
+  var status = "";
+  function Myfuction(){
+    var status = "";
+    let BMI = cannag.value / (chieucao.value * chieucao.value);
+    if(ele.value==='1'){  status += BMI < 20.7 ? "Gầy":
+                            BMI >= 20.7 && BMI < 26.4 ? "Bình thường":
+                                BMI >= 26.4 && BMI < 27.8 ? "Thừa cân nhẹ":
+                                    BMI >= 26.4 && BMI < 31.1 ? "Thừa cân nhẹ": "Béo phì"    
+  }
+  else if (ele.value=='2'){
+    status += BMI < 19.1 ? "Gầy":
+                            BMI >= 19.1 && BMI < 25.8 ? "Bình thường":
+                                BMI >= 25.8 && BMI < 27.3 ? "Thừa cân nhẹ":
+                                    BMI >= 27.3 && BMI < 32.3 ? "Thừa cân nhẹ": "Béo phì"      
+
+  }
+   $("#hot").text(BMI + " | " + status)
+}
+
+  
+ 
+    
+
+</script>
+</html>
