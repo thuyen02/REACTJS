@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <h1>Todo list</h1>
+    <form action="">
+        <input type="text" placeholder="add todo">
+        <button type="submit" id="add">add</button>
+    </form>
+<ul>
+<li>Buy groceries</li>
+</ul>
+<button id="Back">Back</button>
+<button id="next">Next</button>
+<button id="edit">Edit</button>
+<button id="delete">Delete</button>
+</body>
+<script>
+const lis = document.querySelector("ul")
+const back = document.querySelector("#Back")
+const next = document.querySelector("#next")
+const add = document.querySelector("#add")
+let page=1;
+let limit=10;
+    function LoadAxiot(){
+    axios.get(`https://jsonplaceholder.typicode.com/todos?_limit=${limit}&_page=${page}`).then((res)=>{
+        todos = res.data;
+        console.log(todos)
+        render();
+        // `https://jsonplaceholder.typicode.com/todos?_limit=${limit}&_page=${page}`
+});
+}
+
+function render(){
+        const trelement = todos.map(function(todos){
+            return `
+            <li>
+                ${todos.title}
+            </li>
+            `;
+        });
+        lis.innerHTML = trelement.join("");
+    }
+
+//     function addtodo(todos){
+//        event.preventDefault();
+//     axios.get(`https://jsonplaceholder.typicode.com/todos`,todos).then((res)=>{
+//         if (res.data) {
+//             LoadAxiot();
+//       }
+//         // `https://jsonplaceholder.typicode.com/todos?_limit=${limit}&_page=${page}`
+// });
+// }
+
+
+LoadAxiot({
+  limit: limit,
+  page: page,
+});
+back.addEventListener("click",function(){
+hanndback();
+});
+// add.addEventListener("click",function(){
+// addtodo();
+// });
+next.addEventListener("click",function(){
+    hanndnext();
+});
+function hanndnext(){
+    if (page == 4) return;
+    ++page;
+    LoadAxiot(
+        page = page,
+        limit = limit,
+    )
+}
+function hanndback(){
+  
+    if(page==1){
+        return;
+    }
+    --page;
+    LoadAxiot(
+        page = page,
+        limit = limit,
+    )
+}
+// function render() {
+//   const liElement = todos.map(function (todo) {
+//     return `
+//             <li>${todo.title}</li>
+//             <button id="edit">Edit</button>
+//             <button id="delete">Delete</button>
+//         `;
+//   });
+// }
+
+</script>
+</html>

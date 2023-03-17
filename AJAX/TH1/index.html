@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+<body>
+    <table >
+        <th>Name</th>
+        <th>usernam</th>
+        <th>email</th>
+     <tbody>
+        <tr>
+            <td>thuyen</td>
+            <td>naos@gmail.com</td>
+            <td>123</td>
+        </tr>
+     </tbody>
+    </table>
+  
+</body>
+<script>
+    const tbody = document.querySelector("tbody")
+    let empodyess=[];
+    function getemployee(){
+        axios.get("https://jsonplaceholder.typicode.com/users").then(function(res){      
+        employees =res.data;
+        console.log( employees)
+        render();
+});
+    }
+    function render(){
+        const trelement = employees.map(function(employees){
+            return `
+            <tr>
+                <td>${employees.Name}</td>
+                <td>${employees.username}</td>
+                <td>${employees.email}</td>
+            </tr>
+            `;
+        });
+        tbody.innerHTML = trelement.join("");
+    }
+getemployee();
+//     data.then(function(response){
+//         response.json().then(function (res){
+    
+</script>
+</html>

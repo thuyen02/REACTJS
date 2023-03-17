@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
+    <title>Document</title>
+</head>
+<body class="bg-dark text-white">
+    <div class="p-4">
+    <h1>Movies</h1>
+    <div id="movies" class="row no-gutters"></div>
+    </div>
+    </body>
+    <script>
+    const API_KEY = 'api_key=1cf50e6248dc270629e802686245c2c8';
+    const BASE_URL = 'https://api.themoviedb.org/3';
+    const API_URL = BASE_URL + '/discover/movie?sort_by=popularity.desc&'+API_KEY;
+    const IMG_URL = 'https://image.tmdb.org/t/p/w500';
+    async function getPopularMovies() {
+        let data = []
+        try {
+            const response = await fetch(API_URL)
+            const responseData = await response.json()
+            data = responseData?.results
+} catch (error) {
+console.log(error)
+}
+return data
+}
+const moviesDiv = document.getElementById("movies")
+
+
+async function renderMovies() {
+const movies = await getPopularMovies()
+moviesDiv.innerHTML = movies?.map(movie => renderSingleMovie(movie)).join("")
+}
+
+function renderSingleMovie(movie) {
+    return (
+    `
+    <div class="col-4 col-lg-3 col-xl-2 p-1">
+    <img src="${IMG_URL + movie?.poster_path}" class="img-fluid" >
+    </div>
+    `
+)}
+
+renderMovies()
+    </script>
+</html>

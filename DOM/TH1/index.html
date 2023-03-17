@@ -41,7 +41,7 @@
             return `
             <li>
               <span> ${todo}</span>
-              <button id="edit">edit</button>
+              <button id="edit" onclick="handleDelete()" >edit</button>
               <button id="delete">delete</button>
                 </li>
             `;
@@ -54,10 +54,20 @@
                 handleDelete(index);
             });
         }
+        const editButtons = document.querySelectorAll("#edit");
+  for (let index = 0; index < editButtons.length; index++) {
+    const editButton = editButtons[index];
+    editButton.addEventListener("click", function () {
+      handleEdit(index);
+      console.log("index", index);
+      save.innerHTML = "Save";
+    });
+  }
+  
     }
     function initialapp( ){
         render();
     }
-    initialapp();    
+    initialapp();  
 </script>
 </html>
