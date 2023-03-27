@@ -1,61 +1,151 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" >
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-</head>
-<body>
-    <div>
-        <div></div>
-        <div></div>
-
+  </head>
+  <body>
+    <div class="container">
+      <div class="selected-item">
+        <div>
+          <div class="image">
+            <img
+              src="https://images.unsplash.com/photo-1493612276216-ee3925520721?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8cmFuZG9tfGVufDB8fDB8fA%3D%3D&w=1000&q=80"
+              alt=""
+            />
+          </div>
+          <div class="property">
+            <div class="property-first">Gross</div>
+          </div>
+        </div>
+      </div>
+      <div class="list-item">
+        <div class="item">1. First</div>
+        <div class="item">1. second</div>
+      </div>
     </div>
-    <ul id="listPoke">
-        <li></li>
-    </ul>
-</body>
-<script>
-    const listPoke = document.querySelector("#listPoke")
+  </body>
+  <style>
+    .container {
+      width: 400px;
+      height: 300px;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 16px;
+    }
+
+    .selected-item {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .selected-item .image {
+      width: 100px;
+      height: 100px;
+    }
+    .selected-item .image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .selected-item .property {
+      display: flex;
+      justify-content: space-around;
+      margin-top: 20px;
+    }
+
+    .selected-item .property {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+    }
+    .selected-item .property .property-first {
+      background: greenyellow;
+      padding: 4px;
+      border-radius: 4px;
+    }
+
+    .selected-item .property .property-second {
+      background: yellow;
+      padding: 4px;
+      border-radius: 4px;
+    }
+
+    .list-item {
+      overflow-y: scroll;
+      padding: 12px;
+    }
+
+    .list-item .item {
+      border: 1px solid black;
+      padding: 4px;
+      margin-bottom: 4px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+  </style>
+
+  <script>
     let pokemons = [];
-    function loadData(){
-        axios.get("https://pokeapi.co/api/v2/pokemon").then((res)=>{
-           pokemons = res.data.results;
-           console.log(pokemons)
-           render()
+    const listItem = document.querySelector(".list-item");
+    function fetchingData() {
+      axios.get("https://pokeapi.co/api/v2/pokemon").then((res) => {
+        pokemons = res.data.results;
+
+        render();
+      });
+    }
+
+    function render() {
+      const elememts = pokemons.map((pokemon, index) => {
+        return `
+          <div class="item">${index + 1}. ${pokemon.name}</div>
+        `;
+      });
+
+      listItem.innerHTML = elememts.join("");
+
+      const items = document.querySelectorAll(".item");
+
+      for (let index = 0; index < items.length; index++) {
+        const element = items[index];
+        element.addEventListener("click", function () {
+          handleClick(index);
+        });
+      }
+    }
+
+    function handleClick(index) {
+      axios
+        .get(`https://pokeapi.co/api/v2/pokemon/${index + 1}`)
+        .then((res) => {
+          const pokemonDetail = res.data;
+          renderSelectedPokemon(pokemonDetail);
         });
     }
-    loadData();
-    function render(){
-        const liElement = pokemons.map(function(pokemon){
-            return `
-            <li>${pokemon.name}`; 
-             
-        })
-          listPoke.innerHTML= liElement.join("")
-        }
-    // let pokemons = [];
-    // const listPoke = document.querySelector("#listPoke")
-    // function loadData(){
-    //     axios.get("https://pokeapi.co/api/v2/pokemon").then((res) => {
-    //         pokemons = res.data.results;
-    //         console.log(pokemons);
-    //         render();
-    //     })
-    // }
 
-    // function render(){
-    //     const liElement = pokemons.map(function(pokemon){
-    //         return `
-    //             <li>${pokemon.name}
-    //         `;
-    //     });
-    //     listPoke.innerHTML = liElement.join("");
-    // }
-    // loadData()
-</script>
+    function renderSelectedPokemon(pokemon) {
+      const img = document.querySelector(".selected-item .image img");
+      img.src = pokemon.sprites.back_default;
+
+      const types = pokemon.types;
+      const property = document.querySelector(".property");
+
+      const propertyElements = types.map((data) => {
+        return `
+        <div class="property-first">${data.type.name}</div>
+        `;
+      });
+
+      property.innerHTML = propertyElements.join("");
+    }
+
+    fetchingData();
+  </script>
 </html>
