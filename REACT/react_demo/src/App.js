@@ -1,15 +1,12 @@
 import logo from './logo.svg';
 import './App.css';
-
+import Helloworld from './Helloworld';
 function App() {
-  const todos = ["helle0","thueyn"]
-    return <div className="App">
-      
-      {todos.map((todo,index)=>{
-        return <p key={index} >{todo}</p>
-      })}
-    
+  return (
+    <div>
+      <Helloworld />
     </div>
+  );
 }
 
 export default App;
