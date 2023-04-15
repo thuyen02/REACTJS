@@ -1,11 +1,10 @@
-import logo from './logo.svg';
-import styles from './App.module.css'
-    
+
+// import styles from './App.module.css'
+  import Thh from './Thh'
 function App() {
   return (
-    <div className={styles.container}>
-    <div className={styles.sidebar}></div>
-    <div className={styles.content}></div>
+    <div >
+      <Thh/>
   </div>
   );
 }
