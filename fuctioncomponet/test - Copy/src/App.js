@@ -7,9 +7,7 @@ function App() {
   return (
     <div>
       <Bt1/>
-
     </div>
   );
 }
-
 export default App;
