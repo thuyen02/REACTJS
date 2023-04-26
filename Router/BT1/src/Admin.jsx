@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 
 export default function Admin() {
-    const isAdmin = true;
+    const isAdmin = false;
 
     const navigate = useNavigate();
     
